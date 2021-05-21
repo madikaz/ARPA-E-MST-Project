@@ -14,6 +14,10 @@ REM Setting the simulation time step...
 rtds_write 0x00000000 0x00000258
 
 
+REM External SFP Link
+rtds_write 0x00000007 0x00000000
+
+
 REM Reset analog and digital outputs on simulation stop
 rtds_write 0x00C00700 0x00000001
 rtds_write 0x00F00000 0x00000001
@@ -28,8 +32,8 @@ rtds_write 0x01000000 0x00000000
 
 
 REM HSSL configuration files...
-rtds_file_write 0x01C80000 hssl_tx_config.txt
-rtds_file_write 0x01D00000 hssl_rx_config.txt
+rtds_file_write 0x01C40000 hssl_tx_config.txt
+rtds_file_write 0x01C80000 hssl_rx_config.txt
 
 
 REM Parallel DTV configuration...

@@ -1,19 +1,7 @@
-/*
- *  OAgent_ED.h
- *  
- *
- *  Created by Stanton T. Cady on 06/15/12
- *  Edited by Laura Haller on 01/11/13
- *  Last edited by Stanton T. Cady on 01/16/13
- *
- */
-
 #ifndef OAgent_ED_h
 #define OAgent_ED_h
 #include "Streaming.h"
 #include <MgsModbus.h>
-
-//#define VERBOSE
 
 #include "XBee.h"   // Include header for xbee api
 #include "OGraph_ED.h"
@@ -52,8 +40,8 @@ class OAgent_ED {
         inline bool isQuiet() { return _quiet; }
     
         
-        // Primal Dual methods
-        bool EconomicDispatch(uint8_t node_ip, float step_size, uint16_t iterations);
+        // Economic dispatch
+        bool EconomicDispatch(uint8_t node_ip);
         void init_ed(double &lambda,double &nu,double &y,double *sum_lambda,double *sum_nu,double *sum_y,uint8_t num_nodes,uint8_t out_deg,uint8_t deg,double P,double Pd);
         float _clip(float x, float xmin, float xmax);
         double _clip_double(double x, double xmin, double xmax);
@@ -107,10 +95,8 @@ class OAgent_ED {
         uint32_t _aMsb;
         uint32_t _availableAgentLsb[8];
 
-
         MgsModbus *_Mb;
         
-        //Graph
         OGraph_ED * _G;
 
         //Agent properties
@@ -133,10 +119,7 @@ class OAgent_ED {
         inline int /*bool*/ _waitForSyncBeginPacket(unsigned long &rxTime) { return _waitForPacket2(SYNC_BEGIN_HEADER, RESYNC_HEADER,rxTime,true);  /*_waitForPacket(SYNC_BEGIN_HEADER,rxTime,true,-1);*/ }
         inline bool _waitForSyncResponsePacket(unsigned long &rxTime) { return _waitForPacket(SYNC_RESPONSE_HEADER,rxTime,false,SYNC_TIMEOUT); }
         inline bool _waitForSyncFinalPacket(int timeout = -1) { return _waitForPacket(SYNC_FINAL_HEADER,true,timeout); }
-        bool _isTargetNode();
-
-
-        //new additions         
+        bool _isTargetNode();      
         void _broadcastResyncResponsePacket(unsigned long t2, unsigned long node_id);
         int  _waitForPacket2(uint16_t header1, uint16_t header2, unsigned long &rxTime, bool broadcast = false);
         bool  _packetAvailable2(unsigned long &rxTime, bool broadcast = false);

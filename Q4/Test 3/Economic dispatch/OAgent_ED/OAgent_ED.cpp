@@ -1,20 +1,15 @@
 #include "OAgent_ED.h"
 #include "Streaming.h"
 #include <MgsModbus.h>
-//#define VERBOSE
+// #define DEBUG
 
 OAgent_ED::OAgent_ED(XBee * xbee, ZBRxResponse * rx, MgsModbus *Mb, OGraph_ED * G, bool leader, bool quiet) {
     _prepareOAgent_ED(xbee,rx,Mb,G,leader,quiet);
-    //setRS(0);
 }
-
-
-
 
 // Economic Dispatch
 
-bool OAgent_ED::EconomicDispatch(uint8_t node_ip, float step_size, uint16_t iterations) {
-    srand(analogRead(7));
+bool OAgent_ED::EconomicDispatch(uint8_t node_ip) {
     OLocalVertex * s = _G->getLocalVertex();                                                    // store pointer to local vertex
     LinkedList * l = _G->getLinkedList();
 
@@ -37,8 +32,6 @@ bool OAgent_ED::EconomicDispatch(uint8_t node_ip, float step_size, uint16_t iter
             j++;
         }
     }
-    // Serial<<"Node has "<<_G->getN()-1<<" neighbors"<<endl;
-    // DELAY(5);
 
     uint8_t deg = _G->getN()-1;
     int nei2index[NUM_REMOTE_VERTICES]; for (int i=0;i<NUM_REMOTE_VERTICES;i++)nei2index[i]=0;
@@ -48,11 +41,11 @@ bool OAgent_ED::EconomicDispatch(uint8_t node_ip, float step_size, uint16_t iter
 
     uint8_t num_nodes = 5; 
     uint16_t time_instant = 0;
-    uint16_t update_ed = 75, offset = 0; uint8_t period_ed = 75;
+    uint16_t update_ed = 75, offset = 0, reset_ed = 300; uint8_t period_ed = 75;
     
     double Pref_ed, new_P, x = 0.0;
-    float Pref_reg = 0, Pref_reg_tmp = 0, base = 2000.0;
-    double Pmax = 5000.0/base, Pmin = 0.0; 
+    float Pref_reg = 0, Pref_reg_tmp = 0, base = 10000.0;
+    double Pmax = 5000.0/base, Pmin = -5000.0/base; 
 
     _Mb->Req(MB_FC_READ_INPUT_REGISTER,0,2,0,node_ip);
   	_Mb->MbmRun(); DELAY(5);
@@ -61,11 +54,9 @@ bool OAgent_ED::EconomicDispatch(uint8_t node_ip, float step_size, uint16_t iter
     DELAY(5);
 
   	double Pd =  double(int16_t(_Mb->MbData[0])/base);
-    if (!isLeader()) Pmax = double(int16_t(_Mb->MbData[1])/base);
-    double Pmax_ed = Pmax;
+    if (!isLeader()) {Pmax = double(int16_t(_Mb->MbData[1])/base); Pmin = 0.0;}
+    double Pd_ed = Pd, Pmax_ed = Pmax;
 
-  	// if(isLeader()) {Pref_ed =  double(_Mb->MbData[2]/base); Pref_reg = Pd; time_instant = _Mb->MbData[1]; offset = _Mb->MbData[1];}
-  	// else Pref_ed =  double(_Mb->MbData[1]/base);
     double cap_violation = 0.0;
   	if(isLeader()) {Pref_ed =  0.0; Pref_reg = Pd; time_instant = _Mb->MbData[1]; offset = _Mb->MbData[1];}
   	else {Pref_ed =  _clip_double(Pd,Pmin,Pmax); cap_violation = _max(Pd-Pmax,0);} 
@@ -98,48 +89,49 @@ bool OAgent_ED::EconomicDispatch(uint8_t node_ip, float step_size, uint16_t iter
     reg_sum_num[deg] = reg_num_var/out_deg; reg_sum_den[deg] = reg_den_var/out_deg;
     bool received_from[deg]; for (int i=0;i<deg;i++) received_from[i]=false;
 
-    // Serial<<"out_deg="<<out_deg<<" alpha="<<alpha<<" beta="<<beta<<" Pmin="<<Pmin<<" Pmax="<<Pmax<<" Pd="<<Pd<<endl; DELAY(5);
     unsigned long start = millis();
     unsigned long k = 0; 
     uint16_t count[deg], total_count = 0; for (int i=0;i<deg;i++)count[i]=0;
    	uint8_t count_threshold = 5*deg+2; 
+   	float step_size = 0.02;
     while (1)
     {
         
         // Read next regulation signal
         if (isLeader()){
 
-        	_Mb->Req(MB_FC_READ_INPUT_REGISTER,0,2,0,node_ip); //(MB_FC FC, word Ref - typhoon, word Count, word Pos -arduino, int nodeip)
+        	_Mb->Req(MB_FC_READ_INPUT_REGISTER,0,2,0,node_ip);
 		  	_Mb->MbmRun();DELAY(10);
 	      	if (time_instant<_Mb->MbData[1]){
 
 	      		for (int i=0;i<deg;i++) total_count += count[i];
 	      		if ((total_count>=count_threshold) && (Pref_reg_tmp <= Pmax - Pref_ed)) {
-	      			if ((reg_ratio_prev<0) || ((reg_ratio-reg_ratio_prev<0.2) && (reg_ratio-reg_ratio_prev>-0.2))) 
+	      			if ((reg_ratio_prev<0) || ((reg_ratio-reg_ratio_prev<0.1) && (reg_ratio-reg_ratio_prev>-0.1))) 
 	      			{
 		      			Pref_reg = Pref_reg_tmp;
 		      			reg_ratio_prev = reg_ratio;
 		      		}
 		      	}
 	      		print_ed_reg_status(time_instant-offset, float(P)*base, float(x), Pref_reg*base, reg_ratio, count, deg);
-	      		// Serial.print(sum_lambda[deg]);Serial.print(" ");Serial.print(sum_nu[deg]);Serial.print(" ");Serial.println(sum_y[deg]); DELAY(5);
 	      		total_count = 0;
 	      		for (int i=0;i<deg;i++) count[i]=0;
 
-	      		Pd =  double(int16_t(_Mb->MbData[0])/base); //Pd = double((s->getActiveDemand(time_instant))/base); // this is actually a RegD signal
-	            // Serial.println(int16_t(_Mb->MbData[0])); DELAY(5);
-
+	      		Pd =  double(int16_t(_Mb->MbData[0])/base);
 	            if ((time_instant>0) && (time_instant-offset>=update_ed)) 
 	            {
 	            	Pref_ed = P; update_ed+=period_ed;
-	            	init_ed(lambda,nu,y,sum_lambda,sum_nu,sum_y,num_nodes,out_deg,deg,P,Pd);
+	            	// step_size = 0.004;
+	            	// if (time_instant-offset>=reset_ed) {
+	            	// 	init_ed(lambda,nu,y,sum_lambda,sum_nu,sum_y,num_nodes,out_deg,deg,P,Pd_ed); 
+	            	// 	reset_ed += 150;
+	            	// }
 	            	reg_ratio_prev = -1.0;
 	            }
 	        	time_instant = _Mb->MbData[1];
 
 		        _Mb->MbData[0] = int16_t(Pref_ed*base);
 		        _Mb->MbData[1] = int16_t(Pref_reg*base);
-	            _Mb->Req(MB_FC_WRITE_MULTIPLE_REGISTERS,0,2,0,node_ip); //(MB_FC FC, word Ref - typhoon, word Count, word Pos - arduino, int nodeip)
+	            _Mb->Req(MB_FC_WRITE_MULTIPLE_REGISTERS,0,2,0,node_ip);
 				_Mb->MbmRun();DELAY(10);
 
 				reg_num_var = (float)Pd-(Pmin-Pref_ed); reg_den_var = (float)Pmax-Pmin;
@@ -159,20 +151,14 @@ bool OAgent_ED::EconomicDispatch(uint8_t node_ip, float step_size, uint16_t iter
             {
                 int nei_idx = nei2index[neighborID-1];
                 if (!received_from[nei_idx]){
-                    received_from[nei_idx]=true; received_msg = true; //Serial<<neighborID<<endl;
+                    received_from[nei_idx]=true;
                     
                     double* tmp = _getPacket_ed(); float* tmp_reg = _getPacket_reg();
-                 //    if (!((time_instant-offset>=update_ed-period_ed)&&(tmp_reg[2]<update_ed-period_ed))){
-                 //    	new_lambda += tmp[0] - sum_lambda[nei_idx];
-                 //    	new_nu += tmp[1]- sum_nu[nei_idx];
-                 //    	new_y += tmp[2] - sum_y[nei_idx];
-	                //     sum_lambda[nei_idx] = tmp[0];sum_nu[nei_idx] = tmp[1];sum_y[nei_idx] = tmp[2];
-                	// }
                     if (!isLeader() && (time_instant<tmp_reg[2])) 
                     {
                     	for (int i=0;i<deg;i++) total_count += count[i];
 			      		if ((total_count>=count_threshold) && (Pref_reg_tmp <= Pmax - Pref_ed)) {
-			      			if ((reg_ratio_prev<0) || ((reg_ratio-reg_ratio_prev<0.2) && (reg_ratio-reg_ratio_prev>-0.2))) 
+			      			if ((reg_ratio_prev<0) || ((reg_ratio-reg_ratio_prev<0.1) && (reg_ratio-reg_ratio_prev>-0.1))) 
 			      			{
 				      			Pref_reg = Pref_reg_tmp;
 				      			reg_ratio_prev = reg_ratio;
@@ -186,29 +172,34 @@ bool OAgent_ED::EconomicDispatch(uint8_t node_ip, float step_size, uint16_t iter
                         if ((time_instant>0) && (time_instant>=update_ed)) 
                         {
                         	Pref_ed = _clip_double(P,Pmin,Pmax); update_ed+=period_ed;
-                        	init_ed(lambda,nu,y,sum_lambda,sum_nu,sum_y,num_nodes,out_deg,deg,P,Pd);
-                        	new_lambda = 0.0; new_nu = 0.0; new_y = 0.0;
-                            //cap_violation = 0.0
+                        	// step_size = 0.004;
+                        	// if (time_instant>=reset_ed){
+                        	// 	init_ed(lambda,nu,y,sum_lambda,sum_nu,sum_y,num_nodes,out_deg,deg,P,Pd_ed);
+	                        // 	new_lambda = 0.0; new_nu = 0.0; new_y = 0.0;
+	                        // 	reset_ed += 150;
+                        	// }              
                             cap_violation = _max(P-Pmax,0);
                             reg_ratio_prev = -1.0;
                         }
 
 			            _Mb->MbData[0] = int16_t(Pref_ed*base);
 				        _Mb->MbData[1] = int16_t(Pref_reg*base);
-			            _Mb->Req(MB_FC_WRITE_MULTIPLE_REGISTERS,0,2,0,node_ip); //(MB_FC FC, word Ref - typhoon, word Count, word Pos - arduino, int nodeip)
+			            _Mb->Req(MB_FC_WRITE_MULTIPLE_REGISTERS,0,2,0,node_ip);
 						_Mb->MbmRun(); DELAY(5);                      
                         
-                        // double tmp2 = double((s->getActiveDemand(time_instant))/base); // read active power demand measurement
-                        _Mb->Req(MB_FC_READ_INPUT_REGISTER,0,2,0,node_ip); //(MB_FC FC, word Ref - typhoon, word Count, word Pos -arduino, int nodeip)
+                        _Mb->Req(MB_FC_READ_INPUT_REGISTER,0,2,0,node_ip);
 					  	_Mb->MbmRun(); DELAY(10);
-                        // Serial.println(_Mb->MbData[0]); DELAY(5);
 
                         time_instant = uint16_t(tmp_reg[2]); 
             			double tmp2 = double(_Mb->MbData[0]/base); Pmax = double(int16_t(_Mb->MbData[1])/base);
 
-                        if (update_ed - time_instant >15) Pmax_ed = Pmax;
-                        new_y -= num_nodes*(tmp2 - Pd);
-                        if (time_instant>=update_ed) load_change = 0.0;
+                        if (update_ed - time_instant >= 10) {
+                        	Pmax_ed = Pmax; 
+                        	//new_y -= num_nodes*(tmp2 - Pd_ed); Pd_ed = tmp2; // if load changes are large
+                        }                     
+                        new_y -= num_nodes*(tmp2 - Pd_ed); Pd_ed = tmp2; // if load changes are small
+
+                        if (time_instant>=update_ed) load_change = tmp2 - Pd_ed;
                         else load_change += tmp2-Pd;
                         reg_num_var = (float)cap_violation + load_change - (Pmin-Pref_ed); reg_den_var = Pmax-Pmin;
                         reg_num_var_new = 0.0; reg_den_var_new = 0.0;
@@ -225,6 +216,7 @@ bool OAgent_ED::EconomicDispatch(uint8_t node_ip, float step_size, uint16_t iter
 									new_lambda += tmp[0] - sum_lambda[nei_idx]; sum_lambda[nei_idx] = tmp[0];
 									new_nu += tmp[1]- sum_nu[nei_idx]; sum_nu[nei_idx] = tmp[1];
 									new_y += tmp[2] - sum_y[nei_idx]; sum_y[nei_idx] = tmp[2];
+									received_msg = true;
 								}
 							}
                     	}
@@ -239,16 +231,14 @@ bool OAgent_ED::EconomicDispatch(uint8_t node_ip, float step_size, uint16_t iter
 	                    	if (!((tmp_reg[1] - reg_sum_den[nei_idx]>100)||(tmp_reg[1] - reg_sum_den[nei_idx]<-100))){
 		                    	reg_num_var_new += tmp_reg[0] - reg_sum_num[nei_idx]; reg_sum_num[nei_idx] = tmp_reg[0];	                                          
 		                        reg_den_var_new += tmp_reg[1] - reg_sum_den[nei_idx]; reg_sum_den[nei_idx] = tmp_reg[1];
+		                        received_msg2 = true;
 		                    }
 	                    }
-                        received_msg2 = true;
-                        // Serial<<neighborID<<" "<<j<<" "<<counters[j]<<endl;
                         count[nei_idx] += 1;
                     }
                 }
             }
         }
-        // received_msg = false;
         if (received_msg)
         {
             lambda = new_lambda-double(step_size)*new_y + lambda/out_deg-double(step_size)*y/out_deg;
@@ -262,12 +252,8 @@ bool OAgent_ED::EconomicDispatch(uint8_t node_ip, float step_size, uint16_t iter
             sum_lambda[deg] += lambda/out_deg;
             sum_nu[deg] += nu/out_deg;
             sum_y[deg] += y/out_deg;
-            // if ((sum_lambda[deg]>1e9) || (sum_nu[deg]>1e9) || (sum_y[deg]>1e9)){
-            // 	Serial.print(sum_lambda[deg]);Serial.print(" ");Serial.print(sum_nu[deg]);Serial.print(" ");Serial.println(sum_y[deg]);
-            // }
         }
         for (int i=0;i<deg;i++) {received_from[i]=false;}
-        // received_msg2 = false;
         if (received_msg2)
         {
 
@@ -280,16 +266,18 @@ bool OAgent_ED::EconomicDispatch(uint8_t node_ip, float step_size, uint16_t iter
             reg_sum_num[deg] += reg_num_var/out_deg; reg_sum_den[deg] += reg_den_var/out_deg;
             Pref_reg_tmp = float(Pmin-Pref_ed+reg_ratio*(Pmax-Pmin));
         }
-        // if (k%30==0){
-        // 	Serial.println(k);
-        // 	Serial.print(lambda);Serial.print(" ");
-        // 	Serial.print(nu);Serial.print(" ");
-        // 	Serial.println(y);
-        // 	Serial.print(sum_lambda[deg]);Serial.print(" ");
-        // 	Serial.print(sum_nu[deg]);Serial.print(" ");
-        // 	Serial.println(sum_y[deg]);DELAY(5);
-        // }
-        // k++;
+        #ifdef DEBUG
+	        if (k%30==0){
+	        	Serial.println(k);
+	        	Serial.print(lambda);Serial.print(" ");
+	        	Serial.print(nu);Serial.print(" ");
+	        	Serial.println(y);
+	        	Serial.print(sum_lambda[deg]);Serial.print(" ");
+	        	Serial.print(sum_nu[deg]);Serial.print(" ");
+	        	Serial.println(sum_y[deg]);DELAY(5);
+	        }
+	        k++;
+		#endif
 
     }
 
@@ -335,7 +323,6 @@ void OAgent_ED::_SendPacket(double* vars_ed,float* vars_reg,uint16_t time) {
         double b;
     } double2bin;
 
-    // uint8_t payload[38];
     uint8_t payload[36];
 
     payload[0] = ED_HEADER;
@@ -343,8 +330,6 @@ void OAgent_ED::_SendPacket(double* vars_ed,float* vars_reg,uint16_t time) {
     payload[2] = time;
     payload[3] = time >> 8;
 
-    // lmbda,nu,y;
-    // Serial<<"To send"<<endl;
     for (int i=4,j=0;i<28,j<3;i=i+8,j++){
         double2bin.b = vars_ed[j];
         payload[i] = double2bin.a;
@@ -384,12 +369,9 @@ double* OAgent_ED::_getPacket_ed() {
 
     static double a[3];
     uint64_t binary_value;
-    // Serial<<"To receive"<<endl;
     for (int i=4,j=0;i<28,j<3;i=i+8,j++){
         binary_value = (uint64_t(_rx->getData(i+7)) << 56) | (uint64_t(_rx->getData(i+6)) << 48) | (uint64_t(_rx->getData(i+5)) << 40) | (uint64_t(_rx->getData(i+4)) << 32) | (uint64_t(_rx->getData(i+3)) << 24) | (uint64_t(_rx->getData(i+2)) << 16) | (uint64_t(_rx->getData(i+1)) << 8) | uint64_t(_rx->getData(i));
         a[j] = reinterpret_cast<double&>(binary_value);
-        // Serial.print(binary_value,HEX); Serial<<endl;
-        // Serial.print(a[j],15); Serial<<endl;
     }
 
     return a;
@@ -399,12 +381,9 @@ float* OAgent_ED::_getPacket_reg() {
 
     static float a[3];
     uint32_t binary_value;
-    // Serial<<"To receive"<<endl;
     for (int i=28,j=0;i<36,j<2;i=i+4,j++){
         binary_value = (uint32_t(_rx->getData(i+3)) << 24) | (uint32_t(_rx->getData(i+2)) << 16) | (uint32_t(_rx->getData(i+1)) << 8) | uint32_t(_rx->getData(i));
         a[j] = reinterpret_cast<float&>(binary_value);
-        // Serial.print(binary_value,HEX); Serial<<endl;
-        // Serial.print(a[j],15); Serial<<endl;
     }
 
     a[2] = float((int32_t(_rx->getData(3)) << 8) + int32_t(_rx->getData(2)));

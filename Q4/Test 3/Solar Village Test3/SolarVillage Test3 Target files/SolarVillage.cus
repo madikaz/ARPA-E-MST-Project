@@ -1,5 +1,5 @@
 <ui_settings>
-    <version>2.5</version>
+    <version>2.6</version>
     <model_locked>False</model_locked>
     <canvas_bg_color>#ffffff</canvas_bg_color>
     <initialization_code><![CDATA[# NOTE: Variables and functions defined here will be
@@ -185,7 +185,7 @@ irradiance_array = [944.0, 944.0, 944.0, 944.0, 944.0, 944.0, 944.0, 944.0, 944.
     <components>
         <component_data>
                 <id>735f3d48efbf11eabbd70050b621b179</id>
-                <name><![CDATA[RegD]]></name>
+                <name><![CDATA[RegD1]]></name>
                 <type>DigitalDisplay</type>
                 <description><![CDATA[None]]></description>
                 <data_type>Analog signal</data_type>
@@ -205,13 +205,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
-                    <x>1312</x>
-                    <y>1000</y>
+                    <x>1312.0</x>
+                    <y>1000.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[RegD]]></label>
+                    <use_label>True</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -242,13 +245,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
-                    <x>1168</x>
-                    <y>936</y>
+                    <x>696</x>
+                    <y>928</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -279,13 +285,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>680.0</x>
                     <y>736.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -316,13 +325,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>832.0</x>
                     <y>736.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -353,13 +365,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>1040.0</x>
                     <y>672.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -390,13 +405,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>992.0</x>
                     <y>736.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -427,13 +445,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>1144.0</x>
                     <y>736.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -464,13 +485,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>1304.0</x>
                     <y>736.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -501,13 +525,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
-                    <x>1000</x>
-                    <y>944</y>
+                    <x>840</x>
+                    <y>928</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -538,13 +565,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
-                    <x>848</x>
-                    <y>936</y>
+                    <x>1000</x>
+                    <y>928</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -575,13 +605,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
-                    <x>696</x>
-                    <y>936</y>
+                    <x>1160</x>
+                    <y>928</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -612,13 +645,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>848.0</x>
                     <y>672.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -629,7 +665,7 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
             </component_data>
         <component_data>
                 <id>e58f90e681e011eb8cfcd89ef3221e8e</id>
-                <name><![CDATA[ESS Pout]]></name>
+                <name><![CDATA[ESS Pout1]]></name>
                 <type>TraceDisplay</type>
                 <description><![CDATA[]]></description>
                 <data_type>Signals</data_type>
@@ -661,13 +697,16 @@ displayValue = data
                 <update_rate>1000</update_rate>
                 <execution_rate>None</execution_rate>
                 <background_color>white</background_color>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
-                    <x>368</x>
-                    <y>800</y>
+                    <x>976</x>
+                    <y>1000</y>
                     <width>300</width>
                     <height>200</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[ESS Pout]]></label>
+                    <use_label>True</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <x_title><![CDATA[x axes]]></x_title>
@@ -716,7 +755,7 @@ referenceCurves = [refCurveData1]
             </component_data>
         <component_data>
                 <id>b666d776829d11eb8e3dd89ef3221e8e</id>
-                <name><![CDATA[Signal data logger]]></name>
+                <name><![CDATA[Signal data logger1]]></name>
                 <type>SignalDataLogger</type>
                 <description><![CDATA[]]></description>
                 <data_type>Expression</data_type>
@@ -752,13 +791,16 @@ data = {
                 <update_rate>250</update_rate>
                 <use_slower_update_rate>False</use_slower_update_rate>
                 <slower_update_rate>2</slower_update_rate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
-                    <x>1184.0</x>
-                    <y>600.0</y>
+                    <x>528</x>
+                    <y>864</y>
                     <width>120</width>
                     <height>120</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[Signal data logger]]></label>
+                    <use_label>True</use_label>
                 </widget_settings>
                 <data_file_settings>
                     <data_file_dir><![CDATA[None]]></data_file_dir>
@@ -791,13 +833,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>1000.0</x>
                     <y>792.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -828,13 +873,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>1152.0</x>
                     <y>792.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -865,13 +913,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>1312.0</x>
                     <y>792.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -902,13 +953,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>688.0</x>
                     <y>864.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -939,13 +993,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>840.0</x>
                     <y>792.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -976,13 +1033,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>840.0</x>
                     <y>864.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -1013,13 +1073,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>1312.0</x>
                     <y>864.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -1050,13 +1113,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>1000.0</x>
                     <y>864.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -1087,13 +1153,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>1152.0</x>
                     <y>864.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -1124,13 +1193,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>688.0</x>
                     <y>792.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -1161,13 +1233,16 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
-                    <x>1312</x>
-                    <y>1056</y>
+                    <x>1312.0</x>
+                    <y>1056.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -1178,7 +1253,7 @@ displayValue = hil.read_analog_signal(name = 'PCC.P')/1000.0
             </component_data>
         <component_data>
                 <id>f3035c5182b511eba062d89ef3221e8e</id>
-                <name><![CDATA[Total Power]]></name>
+                <name><![CDATA[Total Gen]]></name>
                 <type>DigitalDisplay</type>
                 <description><![CDATA[None]]></description>
                 <data_type>Expression</data_type>
@@ -1196,13 +1271,16 @@ displayValue = hil.read_analog_signal(name = 'ESS.Inverter.P') + hil.read_analog
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
                     <x>1312</x>
                     <y>936</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -1232,13 +1310,16 @@ displayValue = P-Load]]></code>
                 <automatic_unit>True</automatic_unit>
                 <decimals><![CDATA[2]]></decimals>
                 <updateRate>1000</updateRate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
-                    <x>1312</x>
-                    <y>1112</y>
+                    <x>1312.0</x>
+                    <y>1112.0</y>
                     <width>128</width>
                     <height>48</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <color_range>False</color_range>
@@ -1268,7 +1349,8 @@ Pref_reg2 = hil.read_analog_signal(name = 'SolarHouse2.Pref_reg')
 Pref_reg3 = hil.read_analog_signal(name = 'SolarHouse3.Pref_reg')
 Pref_reg4 = hil.read_analog_signal(name = 'SolarHouse4.Pref_reg')
 
-displayValue = [ [RegD,Tie_power,Pref_reg+Pref_reg1+Pref_reg2+Pref_reg3+Pref_reg4], ['RegD [W]','Tie Power [W]','Total Pref [W]'] ]
+#displayValue = [ [RegD,Tie_power,Pref_reg+Pref_reg1+Pref_reg2+Pref_reg3+Pref_reg4], ['RegD [W]','Tie Power [W]','Total Pref [W]'] ]
+displayValue = [ [RegD,Tie_power], ['RegD [W]','Tie Power [W]'] ]
 ]]></code>
                 <analog_signals><![CDATA[['ESS.Pref_reg']]]></analog_signals>
                 <digital_signals><![CDATA[[]]]></digital_signals>
@@ -1277,13 +1359,16 @@ displayValue = [ [RegD,Tie_power,Pref_reg+Pref_reg1+Pref_reg2+Pref_reg3+Pref_reg
                 <update_rate>1000</update_rate>
                 <execution_rate>None</execution_rate>
                 <background_color>white</background_color>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
-                    <x>488</x>
-                    <y>1024</y>
+                    <x>560</x>
+                    <y>1224</y>
                     <width>800</width>
                     <height>300</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <advance_widget_settings>
                     <x_title><![CDATA[x axes]]></x_title>
@@ -1292,7 +1377,7 @@ displayValue = [ [RegD,Tie_power,Pref_reg+Pref_reg1+Pref_reg2+Pref_reg3+Pref_reg
                     <y_range_max>100.0</y_range_max>
                     <time_window>60</time_window>
                     <auto_scale_enabled>True</auto_scale_enabled>
-                    <legend_enabled>False</legend_enabled>
+                    <legend_enabled>True</legend_enabled>
                     <x_axis_title_enabled>False</x_axis_title_enabled>
                     <y_axis_title_enabled>False</y_axis_title_enabled>
                     <use_reference_curve>False</use_reference_curve>
@@ -1370,13 +1455,16 @@ data = {
                 <update_rate>250</update_rate>
                 <use_slower_update_rate>False</use_slower_update_rate>
                 <slower_update_rate>2</slower_update_rate>
-                <hierarchy_position>1</hierarchy_position>
                 <widget_settings>
-                    <x>488.0</x>
-                    <y>664.0</y>
+                    <x>528</x>
+                    <y>712</y>
                     <width>120</width>
                     <height>120</height>
                     <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
                 </widget_settings>
                 <data_file_settings>
                     <data_file_dir><![CDATA[None]]></data_file_dir>
@@ -1386,6 +1474,89 @@ data = {
                     <use_file_name_suffix><![CDATA[True]]></use_file_name_suffix>
                     <start_logging_on_sim_start><![CDATA[True]]></start_logging_on_sim_start>
                 </data_file_settings>
+            </component_data>
+        <component_data>
+                <id>434af39eb8a711eba756d89ef3221e8e</id>
+                <name><![CDATA[Total Load]]></name>
+                <type>TraceDisplay</type>
+                <description><![CDATA[]]></description>
+                <data_type>Expression</data_type>
+                <code><![CDATA[# HIL API is imported as 'hil'
+# NOTE: Only read functions are available from the HIL API
+
+# mandatory variable used for storing values
+# that will be displayed
+# specify data (one pairs of "names" and "values" parts are mandatory)
+
+Load1 = hil.read_analog_signal(name = 'SolarHouse1.Measurement.P')
+Load2 = hil.read_analog_signal(name = 'SolarHouse2.Measurement.P')
+Load3 = hil.read_analog_signal(name = 'SolarHouse3.Measurement.P')
+Load4 = hil.read_analog_signal(name = 'SolarHouse4.Measurement.P')
+
+displayValue = [ [Load1+Load2+Load3+Load4], ['Total Load [W]'] ]
+]]></code>
+                <analog_signals><![CDATA[['ESS.Pref_reg']]]></analog_signals>
+                <digital_signals><![CDATA[[]]]></digital_signals>
+                <streaming_analog_signals><![CDATA[[]]]></streaming_analog_signals>
+                <streaming_digital_signals><![CDATA[[]]]></streaming_digital_signals>
+                <update_rate>1000</update_rate>
+                <execution_rate>None</execution_rate>
+                <background_color>white</background_color>
+                <widget_settings>
+                    <x>600</x>
+                    <y>984</y>
+                    <width>360</width>
+                    <height>232</height>
+                    <appearance><![CDATA[Flat]]></appearance>
+                    <hierarchy_position><![CDATA[1]]></hierarchy_position>
+                    <is_background><![CDATA[False]]></is_background>
+                    <label><![CDATA[]]></label>
+                    <use_label>False</use_label>
+                </widget_settings>
+                <advance_widget_settings>
+                    <x_title><![CDATA[x axes]]></x_title>
+                    <y_title><![CDATA[y axes]]></y_title>
+                    <y_range_min>-100.0</y_range_min>
+                    <y_range_max>100.0</y_range_max>
+                    <time_window>60</time_window>
+                    <auto_scale_enabled>True</auto_scale_enabled>
+                    <legend_enabled>True</legend_enabled>
+                    <x_axis_title_enabled>False</x_axis_title_enabled>
+                    <y_axis_title_enabled>False</y_axis_title_enabled>
+                    <use_reference_curve>False</use_reference_curve>
+                    <reference_curve_code><![CDATA[# NOTE: Global namespace variables are available
+# Selected time window is available through variable 'timeWindow'
+# Selected update rate is available through variable 'updateRate'
+
+# reference curve data point
+curveData = 12.0
+
+# specify curve options ('data' part is mandatory)
+refCurveData1 = {
+    # reference curve data point
+    "data": curveData,
+
+    # curve line style: 'solid', 'dashed', 'dashdot', 'dotted'
+    "line_style": "dashed",
+
+    # curve line color: 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow'
+    "line_color": 'red',
+
+    # curve line width: float number
+    "line_width": 2.0,
+    
+    # reference curve title
+    "title": "Reference curve",
+
+    # show a title in the legend
+    "show_in_legend": True
+}
+
+# list of reference curves data: [ref1, ref2,...refN]
+referenceCurves = [refCurveData1]
+
+]]></reference_curve_code>
+                </advance_widget_settings>
             </component_data>
         </components>
 </ui_settings>
